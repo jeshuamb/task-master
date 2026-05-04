@@ -98,7 +98,7 @@ Esta opción:
 
 Para producción real se recomienda usar Redis externo, especialmente cuando:
 
-*¨La aplicación tiene usuarios reales
+* La aplicación tiene usuarios reales
 * Se requiere protección contra ataques de fuerza bruta
 * Se usan múltiples instancias del servidor
 

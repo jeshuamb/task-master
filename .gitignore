@@ -1,8 +1,11 @@
-# ========================
 # ENV FILES
-# ========================
 .env
+
+# IGNORAR OTROS ENV
 .env.*
+
+# PERMITIR ESTE ARCHIVO
+!.env.example
 
 # ========================
 # PYTHON CACHE

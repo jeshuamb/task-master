@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<h1>{{ title }}</h1>
+{% endblock %}
+
+{% block subtitle %}
+{{ subtitle }}
+{% endblock %}
+
+{% block content %}
+
+<div class="error-box">
+
+    <div class="error-icon">
+        {{ icon }}
+    </div>
+
+    <p class="error-message">
+        {{ message }}
+    </p>
+
+    <div class="error-actions">
+        <a href="{{ url_for('main.index') }}" class="btn btn-login">
+            Ir al inicio
+        </a>
+
+        {% if back_url %}
+        <a href="{{ back_url }}" class="btn btn-signup">
+            Volver
+        </a>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

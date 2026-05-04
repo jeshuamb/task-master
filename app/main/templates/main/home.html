@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Task Master - Inicio</title>
+</head>
+<body>
+    <div class="home-container">
+        <!-- Sección de imagen destacada -->
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='imgs/Task.png') }}" alt="Task Master">
+        </div>
+
+        <!-- Sección de contenido -->
+        <div class="home-content">
+            <!-- Sección de descripción -->
+            <div class="home-description">
+                <h1>✓ Task Master</h1>
+                <h2>Organiza tu vida productivamente</h2>
+                <p>Task Master te ayuda a gestionar tus tareas de forma simple y efectiva. Mantén el control de lo que necesitas hacer y aumenta tu productividad.</p>
+            </div>
+
+            <!-- Características rápidas -->
+            <div class="features">
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text">Tareas organizadas</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <span class="feature-text">Filtro inteligente</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <span class="feature-text">Estadísticas claras</span>
+                </div>
+            </div>
+
+            <!-- Sección de acciones -->
+            <div class="auth-section">
+                <div class="auth-buttons">
+                    <a href="{{ url_for('auth.signin') }}" class="btn btn-login">
+                        Iniciar Sesión
+                    </a>
+                    <a href="{{ url_for('auth.signup') }}" class="btn btn-signup">
+                        Registrarse
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="home-footer">
+        <div class="footer-inner">
+            <p>Diseñado y Desarrollado por Jesús Marín</p>
+        </div>
+    </footer>
+</body>
+</html>

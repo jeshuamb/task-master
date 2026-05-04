@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Task Master{% endblock %}
+
+{% block titulo %}
+    <h1>✓ Task Master</h1>
+{% endblock %}
+
+
+{% block saludo %}
+    {% if show_welcome %}
+        <p id="saludo" class="subtitle">¡Bienvenid@ {{ current_user.name }}!</p>
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='task_master.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Formulario para agregar tareas (Flask-WTF) -->
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="input-section">
+            {{ form.content.label }}
+            {{ form.content }}
+            <button type="submit" class="btn btn-add">Agregar</button>
+        </div>
+    </form>
+
+    {% for error in form.content.errors %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+
+    {% with messages = get_flashed_messages(category_filter=["error_tarea"]) %}
+        {% if messages %}
+            <div id="boton-agregar" class="flash-message">{{ messages[0] }}</div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Filtros con rutas Flask -->
+    <div class="filter-section">
+        <a href="{{ url_for('admin.app_page', filter='all') }}" class="filter-btn {% if filter_type == 'all' %}active{% endif %}">Todas</a>
+        <a href="{{ url_for('admin.app_page', filter='active') }}" class="filter-btn {% if filter_type == 'active' %}active{% endif %}">Activas</a>
+        <a href="{{ url_for('admin.app_page', filter='completed') }}" class="filter-btn {% if filter_type == 'completed' %}active{% endif %}">Completadas</a>
+    </div>
+
+    <!-- Lista de tareas -->
+    <div class="tasks-section">
+        <ul class="task-list">
+            {% if tasks|length == 0 %}
+                {% if filter_type == 'completed' %}
+                    <li class="empty-state"><p>📝 No hay tareas completadas aún...</p></li>
+                {% elif filter_type == 'active' %}
+                    <li class="empty-state"><p>📝 No hay tareas activas aún...</p></li>
+                {% else %}
+                    <li class="empty-state"><p>📝 No hay tareas aún...</p></li>
+                {% endif %}
+            {% else %}
+                {% for task in tasks %}
+                <li class="task-item {{ 'completed' if task.completed else 'active' }}" data-id="{{ task.id }}">
+                
+                    <div style="display:flex; align-items:center; gap:8px; width:100%;">
+                        <!-- Checkbox para marcar/desmarcar -->
+                        <form action="{{ url_for('admin.completed_task', id=task.id) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input
+                                type="checkbox"
+                                onchange="this.form.submit()"
+                                {% if task.completed %}checked{% endif %}
+                            >
+                        </form>
+                        <div class="task-content">
+                            <span class="task-text">{{ task.content }}</span>
+                            <div class="task-meta">{{ task.formatted_datetime if task.datetime_created else '' }}</div>
+                        </div>
+
+                        <div class="task-actions">
+                            <a href="{{ url_for('admin.update_task', id=task.id) }}" class="btn btn-edit" title="Editar">✏️</a>
+                            <form action="{{ url_for('admin.delete_task', id=task.id) }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-edit" title="Eliminar">🗑️</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+
+    <!-- Contador de tareas (provenientes del servidor) -->
+    <div class="stats-section">
+        <span id="taskCount" class="stat">📝​  Tareas: {{ total_count }}</span>
+        <span id="completedCount" class="stat">✔️​  Completadas: {{ tasks_completed_count }}</span>
+
+        <!-- Botón Limpiar completadas -->
+        <form action="{{ url_for('admin.clear_completed') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-clear">Limpiar completadas</button>
+        </form> 
+    </div>
+
+    {% with messages = get_flashed_messages(category_filter=["error_completadas"]) %}
+        {% if messages %}
+            <div class="flash-message-error_completadas">{{ messages[0] }}</div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Botón de logout -->
+    <div class="logout-footer">
+        <form id="logoutForm" action="{{ url_for('auth.logout') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="logout-btn" title="Salir">
+                <img src="{{ url_for('static', filename='imgs/logout.png') }}" alt="Salir">
+            </button>
+        </form>
+    </div>
+
+    <!-- Modal de expiración de sesión -->
+    <div id="sessionModal" class="session-modal">
+        <div class="session-modal-card">
+
+            <h2>⚠️ Sesión por expirar</h2>
+
+            <p>
+                Tu sesión está a punto de expirar por inactividad.
+            </p>
+
+            <p class="session-countdown">
+                La sesión se cerrará en <span id="countdown">20</span> segundos.
+            </p>
+
+            <div class="session-actions">
+                <button id="stayBtn" class="btn-login">Seguir en la sesión</button>
+                <button id="logoutBtn" class="btn-signup">Cerrar sesión</button>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/saludo.js') }}"></script>
+{% endblock %}

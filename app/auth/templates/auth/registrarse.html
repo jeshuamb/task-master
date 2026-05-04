@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Master - Registrarse{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+{% endblock %}
+
+{% block titulo %}
+    <a href="{{ url_for('main.index') }}" class="logo-link"><h1>✓ Task Master</h1></a>
+{% endblock %}
+    
+
+{% block content %}
+	<div class="auth-card">
+		<h2>Registrarse</h2>
+		<p class="muted">Crea tu cuenta y comienza a organizar tus tareas</p>
+
+		<form id="signupForm" action="{{ url_for('auth.signup') }}" method="post" novalidate class="auth-form" data-csrf-url="{{ url_for('auth.csrf_token') }}">
+            {{ form.hidden_tag() }}
+                    
+            <div>
+                {{ form.name.label }}
+                {{ form.name(autocomplete="name") }}
+                {% for error in form.name.errors %}
+                    <small style="color: red;">{{ error }}</small>
+                {% endfor %}
+            </div>                    
+            <div>
+                {{ form.email.label }}
+                {{ form.email(autocomplete="email") }}
+                {% for error in form.email.errors %}
+                    <small style="color: red;">{{ error }}</small>
+                {% endfor %}
+                {% with messages = get_flashed_messages(category_filter=["error_registro"]) %}
+                    {% if messages %}
+                        <small style="color: red;">{{ messages[0] }}</small>
+                    {% endif %}
+                {% endwith %}
+            </div>       
+            <div>
+                {{ form.password.label }}
+                {{ form.password(autocomplete="new-password") }}
+                {% for error in form.password.errors %}
+                    <small style="color: red;">{{ error }}</small>
+                {% endfor %}
+            </div>       
+            <div>
+                {{ form.confirm_password.label }}
+                {{ form.confirm_password(autocomplete="new-password") }}
+                {% for error in form.confirm_password.errors %}
+                    <small style="color: red;">{{ error }}</small>
+                {% endfor %}
+            </div>       
+			<div class="auth-actions">
+				<button type="submit" class="btn btn-login">Crear cuenta</button>
+				<a href="{{ url_for('auth.signin') }}" class="btn btn-signup">Ya tengo cuenta</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const forms = document.querySelectorAll("form.auth-form[data-csrf-url]");
+        if (!forms.length) return;
+
+        forms.forEach((form) => {
+            const csrfUrl = form.dataset.csrfUrl;
+            if (!csrfUrl) return;
+
+            form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            try {
+                const res = await fetch(csrfUrl, {
+                method: "GET",
+                credentials: "same-origin",
+                cache: "no-store",
+                });
+
+                if (res.ok) {
+                const data = await res.json();
+                const input = form.querySelector('input[name="csrf_token"]');
+                if (input && data.csrf_token) {
+                    input.value = data.csrf_token;
+                }
+                }
+            } finally {
+                form.submit();
+            }
+            });
+        });
+        });
+
+    </script>
+    <script src="{{ url_for('static', filename='js/auth_security.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,97 @@
+/* Task Master */
+
+.error {
+    font-size: 1.0em;
+    color: var(--danger-color);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.logout-footer { 
+    display:flex; 
+    justify-content:center; margin-top:20px; 
+}
+
+.logout-btn { 
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background: var(--danger-color);
+    color: white;
+    padding:8px;
+    width:48px; height:48px; border-radius:50%; text-decoration:none; box-shadow: var(--shadow); }
+
+.logout-btn img {
+    width:42px;
+    height:42px;
+    object-fit:cover; 
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg); 
+}
+
+@media (max-width:480px) {
+    .logout-btn {
+        width:44px;
+        height:44px;
+        padding:6px; 
+    }
+
+    .logout-btn img { 
+        width:48px;
+        height:48px;
+    }
+
+    .filter-section { 
+        flex-direction:column;
+        gap:8px; text-align:center; 
+    }
+}
+
+@media (min-width: 480px) and (max-width: 520px) {
+    .stats-section { 
+        flex-direction:
+        column; gap: 12px;
+        align-items: flex-start; 
+    }
+    
+    #completedCount { margin-left: 0; }
+}
+
+/* Checkbox y lista de tareas */
+.tasks-section { 
+    margin-top:12px; 
+}
+
+.task-list { list-style:none;
+    padding:0;
+    margin:0; 
+}
+
+/* Contadores y limpiar completadas */
+.stats-section { 
+    display:flex;
+    gap:16px;
+    align-items:center;
+    margin-top:18px; 
+}
+
+.flash-message {
+    font-size: 1.0em;
+    color: var(--danger-color);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.flash-message-error_completadas {
+    font-size: 1.0em;
+    color: var(--danger-color);
+    text-align: center;
+    margin: 20px 0;
+}
+
+@media (min-width:768px) {
+    #completedCount { margin-left: 60px; }
+}

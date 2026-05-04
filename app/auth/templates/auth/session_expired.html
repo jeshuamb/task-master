@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='session_expired.css') }}">
+{% endblock %}
+
+
+{% block title %}
+    Task Master - Sesión Expirada
+{% endblock %}
+    
+{% block titulo %}
+    <a href="{{ url_for('main.index') }}" class="logo-link"><h1>✓ Task Master</h1></a>
+{% endblock %}
+
+{% block content %}
+
+    <div class="auth-card">
+
+        <h2>🔒 Sesión finalizada</h2>
+
+        <p class="muted">
+            Tu sesión se cerró automáticamente por inactividad
+            para proteger tu cuenta.
+        </p>
+
+        <div class="auth-actions">
+            <a href="{{ url_for('auth.signin') }}" class="btn btn-login">
+                Iniciar sesión nuevamente
+            </a>
+        </div>
+
+    </div>
+
+{% endblock %}

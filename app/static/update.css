@@ -1,0 +1,151 @@
+/* ==========================================
+   CONFIGURACIÓN GENERAL Y RESPONSIVE
+   ========================================== */
+
+.edit-container {
+    max-width: 480px;
+    margin: 40px auto;
+    padding: 24px;
+    background: var(--muted-bg, transparent);
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0,0,0,0.05);
+    animation: fadeIn 0.25s ease;
+    box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Título */
+.edit-title {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 1.6em;
+    color: var(--primary-color, inherit);
+}
+
+.error {
+    font-size: 1.0em;
+    color: var(--danger-color);
+    text-align: center;
+    margin: 16px 0;
+}
+
+/* Inputs y Secciones */
+.update-input-section {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.task-edit-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.2);
+    font-size: 16px;
+    background: white;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    display: block;
+}
+
+.task-edit-input:focus {
+    border-color: var(--primary-color, rgba(0,0,0,0.2));
+    box-shadow: 0 0 6px rgba(79, 70, 229, 0.4);
+    outline: none;
+}
+
+.input-label {
+    text-align: center;
+    font-weight: bold;
+    color: var(--text-color, inherit);
+    font-size: 1.05em;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Estilo para los errores */
+small {
+    display: block;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Botones y Acciones */
+.actions-section {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn-save, .btn-cancel {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-dark) 100%);
+    color: white !important;
+}
+
+.btn-cancel {
+    background: var(--danger-color);
+    color: white !important;
+}
+
+.btn-save:hover, .btn-cancel:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+.flash-message {
+    font-size: 1.0em;
+    color: var(--danger-color);
+    text-align: center;
+    margin: 16px 0;
+}
+
+/* ==========================================
+   MEDIA QUERIES (MÓVILES)
+   ========================================== */
+
+@media (max-width: 480px) {
+    .edit-container {
+        margin: 20px 15px;
+        padding: 20px;
+        width: auto;
+    }
+
+    .actions-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-save, .btn-cancel {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .edit-title {
+        font-size: 1.4em;
+    }
+}

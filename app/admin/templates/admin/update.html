@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='update.css') }}">
+{% endblock %}
+
+{% block titulo %}
+<h1 class="edit-title">✓ Task Master</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="edit-container">
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            
+            <div class="update-input-section">
+                {{ form.content.label("Modificar Tarea  ✏️", class="input-label") }}
+                {{ form.content(class="task-edit-input") }}
+            </div>
+
+            {% for error in form.content.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+
+            {% with messages = get_flashed_messages(category_filter=["error_tarea"]) %}
+                {% if messages %}
+                    <div class="flash-message">{{ messages[0] }}</div>
+                {% endif %}
+            {% endwith %}
+
+            <div class="actions-section">
+                <button type="submit" class="btn-save">Guardar cambios</button>
+                <a href="{{ url_for('admin.app_page') }}" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal de expiración de sesión -->
+    <div id="sessionModal" class="session-modal">
+        <div class="session-modal-card">
+
+            <h2>⚠️ Sesión por expirar</h2>
+
+            <p>
+                Tu sesión está a punto de expirar por inactividad.
+            </p>
+
+            <p class="session-countdown">
+                La sesión se cerrará en <span id="countdown">20</span> segundos.
+            </p>
+
+            <div class="session-actions">
+                <button id="stayBtn" class="btn-login">Seguir en la sesión</button>
+                <button id="logoutBtn" class="btn-signup">Cerrar sesión</button>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+

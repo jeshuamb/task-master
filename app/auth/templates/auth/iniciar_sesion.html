@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Master - Iniciar Sesión{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='signin.css') }}">
+{% endblock %}
+
+
+{% block titulo %}
+    <a href="{{ url_for('main.index') }}" class="logo-link"><h1>✓ Task Master</h1></a>
+{% endblock %}
+    
+
+{% block content %}
+	<div class="auth-card">
+		<h2>Iniciar Sesión</h2>
+		<p class="muted">Accede a tu cuenta para gestionar tus tareas</p>
+
+		<form id="signinForm" action="{{ url_for('auth.signin') }}" method="post" novalidate class="auth-form" data-csrf-url="{{ url_for('auth.csrf_token') }}" autocomplete="off">
+            {{ form.hidden_tag() }}
+
+            
+            <div>
+                {{ form.email.label }}
+                {{ form.email(autocomplete="off") }}
+                {% for error in form.email.errors %}
+                    <small style="color: red;">{{ error }}</small>
+                {% endfor %}
+                {% with messages = get_flashed_messages(category_filter=["error_usuario"]) %}
+                    {% if messages %}
+                        <small style="color: red;">{{ messages[0] }}</small>
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div>
+                {{ form.password.label }}
+                {{ form.password(autocomplete="off") }}
+                {% for error in form.password.errors %}
+                    <small style="color: red;">{{ error }}</small>
+                {% endfor %}
+                {% with messages = get_flashed_messages(category_filter=["error_contraseña"]) %}
+                    {% if messages %}
+                        <small style="color: red;">{{ messages[0] }}</small>
+                    {% endif %}
+                {% endwith %}
+                {% with messages = get_flashed_messages(category_filter=["success_token"]) %}
+                    {% if messages %}
+                        <small style="color: green;">{{ messages[0] }}</small>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+			<div class="forgot-link">
+				<a href="{{ url_for('auth.reset_password') }}">¿Olvidó su contraseña?</a>
+			</div>
+
+			<div class="auth-actions">
+				<button type="submit" class="btn btn-login">Iniciar Sesión</button>
+				<a href="{{ url_for('auth.signup') }}" class="btn btn-signup">Crear cuenta</a>
+			</div>
+            {% with messages = get_flashed_messages(category_filter=["exito_registro"]) %}
+                {% if messages %}
+                    <small style="color: green; text-align: center;">{{ messages[0] }}</small>
+                {% endif %}
+            {% endwith %}
+		</form>
+	</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const forms = document.querySelectorAll("form.auth-form[data-csrf-url]");
+        if (!forms.length) return;
+
+        forms.forEach((form) => {
+            const csrfUrl = form.dataset.csrfUrl;
+            if (!csrfUrl) return;
+
+            form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            try {
+                const res = await fetch(csrfUrl, {
+                method: "GET",
+                credentials: "same-origin",
+                cache: "no-store",
+                });
+
+                if (res.ok) {
+                const data = await res.json();
+                const input = form.querySelector('input[name="csrf_token"]');
+                if (input && data.csrf_token) {
+                    input.value = data.csrf_token;
+                }
+                }
+            } finally {
+                form.submit();
+            }
+            });
+        });
+        });
+
+    </script>
+    <script src="{{ url_for('static', filename='js/auth_security.js') }}"></script>
+{% endblock %}

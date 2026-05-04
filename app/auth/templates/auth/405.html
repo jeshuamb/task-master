@@ -1,0 +1,7 @@
+{% extends "base_error.html" %}
+
+{% set title = "Método no permitido" %}
+{% set subtitle = "Error 405" %}
+{% set message = "La acción que intentaste realizar no está permitida en esta ruta." %}
+{% set icon = "⚠️" %}
+{% set back_url = url_for('main.index') %}

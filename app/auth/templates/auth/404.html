@@ -1,0 +1,7 @@
+{% extends "base_error.html" %}
+
+{% set title = "Página no encontrada" %}
+{% set subtitle = "Error 404" %}
+{% set message = "La página que buscas no existe o fue movida." %}
+{% set icon = "🔍" %}
+{% set back_url = url_for('main.index') %}

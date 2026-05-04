@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Task Master - Demasiados intentos
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='signin.css') }}">
+{% endblock %}
+
+{% block titulo %}
+    <a href="{{ url_for('main.index') }}" class="logo-link">
+        <h1>✓ Task Master</h1>
+    </a>
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-card">
+
+    <h2 style="text-align: center;">⚠️ Demasiados intentos</h2>
+
+    <p class="muted" style="margin-top: 10px; text-align: justify;">
+        Has realizado demasiadas solicitudes en un corto período de tiempo.
+    </p>
+
+    <p class="muted" style="margin-top: 10px; text-align: justify;">
+        Por razones de seguridad, hemos limitado temporalmente esta acción para proteger tu cuenta y evitar accesos no autorizados.
+    </p>
+
+    <p class="muted" style="margin-top: 10px; text-align: justify;">
+        Por favor espera unos minutos antes de intentar nuevamente.
+    </p>
+
+    <!-- Mensajes dinámicos según contexto -->
+    {% if type == "login" %}
+        <p class="muted" style="margin-top: 10px; text-align: justify;">
+            Si tienes problemas para acceder, puedes restablecer tu contraseña utilizando la opción correspondiente.
+        </p>
+    {% elif type == "reset" %}
+        <p class="muted" style="margin-top: 10px; text-align: justify;">
+            Ya hemos recibido varias solicitudes recientemente. Revisa tu correo electrónico antes de intentar nuevamente.
+        </p>
+    {% else %}
+        <p class="muted" style="margin-top: 10px; text-align: justify;">
+            Si el problema persiste, intenta nuevamente más tarde o verifica tu conexión.
+        </p>
+    {% endif %}
+
+    <div class="auth-actions" style="margin-top: 20px;">
+        <a href="{{ url_for('auth.signin') }}" class="btn btn-login">
+            Iniciar sesión
+        </a>
+
+        <a href="{{ url_for('auth.reset_password') }}" class="btn btn-signup">
+            Restablecer contraseña
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

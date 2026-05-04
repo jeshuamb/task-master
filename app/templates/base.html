@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>{% block title %}Task Master{% endblock %}</title>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            {% block titulo %}{% endblock %}
+            {% block saludo %}{% endblock %}
+            <p class="subtitle">{% block subtitle %}Organiza tus tareas fácilmente{% endblock %}</p>
+        </header>
+
+        <main class="main-content">
+            {% block content %}
+            
+            {% endblock %}
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

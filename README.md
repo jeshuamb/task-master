@@ -1,10 +1,10 @@
-## -Task Master-
+## Task Master
 
 Task Master es una aplicación web desarrollada con Flask que permite gestionar tareas
 de manera eficiente, con autenticación segura, control de sesiones y sistema
 de recuperación de contraseña.
 
-## -Características-
+## Características
 
 * Registro e inicio de sesión de usuarios
 * Gestión de tareas (crear, editar, eliminar, completar)
@@ -14,9 +14,9 @@ de recuperación de contraseña.
 * Recuperación de contraseña por email (JWT)
 * Protección CSRF
 * Rate limiting (protección contra abuso)
-* Diseño responsive moderno
-
-## -Tecnologías-
+*  Interfaz responsive adaptable a distintos dispositivos
+  
+## Tecnologías
 
 * Python 3
 * Flask
@@ -28,7 +28,7 @@ de recuperación de contraseña.
 * MySQL
 * Redis (rate limiting)
 
-## -Instalación-
+## Instalación
 
 1. git clone https://github.com/jeshuamb/task-master.git
 2. cd task-master
@@ -36,7 +36,7 @@ de recuperación de contraseña.
 4. source venv/bin/activate  # Windows: venv\Scripts\activate
 5. pip install -r requirements.txt
 
-## -Configuración-
+## Configuración
 
 1. Copia .env.example y renómbralo a .env
 2.  Configura tus variables de entorno
@@ -44,7 +44,7 @@ de recuperación de contraseña.
 FLASK_APP=entrypoint
 CONFIG_ENV=development
 
-## -Dependencias externas-
+## Dependencias externas
 
 Redis (Flask-Limiter)
 
@@ -54,7 +54,7 @@ contra abuso mediante rate limiting.
 Configuración actual:
 storage_uri="redis://localhost:6379"
 
-## -Importante para producción-
+## Importante para producción
 
 El sistema de rate limiting requiere Redis activo para funcionar correctamente.
 
@@ -64,7 +64,7 @@ Si Redis no está disponible:
 * La protección contra abuso no se aplicará correctamente
 * Algunas rutas pueden comportarse de forma inesperada
 
-## -Opciones de despliegue- 
+## Opciones de despliegue
 
 Opción recomendada (producción)
 
@@ -83,7 +83,7 @@ Y en la app:
 
 storage_uri=os.getenv("REDIS_URL")
 
-## -Opción alternativa (sin Redis)-
+## Opción alternativa (sin Redis)
 
 storage_uri="memory://"
 
@@ -93,19 +93,19 @@ Esta opción:
 * No es escalable
 * No recomendada para producción
 
-## -Recomendación-
+## Recomendación
 
 Para producción real se recomienda usar Redis externo, especialmente cuando:
 
-* La aplicación tiene usuarios reales
+* La aplicación maneja usuarios reales
 * Se requiere protección contra ataques de fuerza bruta
 * Se usan múltiples instancias del servidor
 
-## -Ejecución-
+## Ejecución
 
 flask run
 
-## -Seguridad implementada-
+## Seguridad implementada
 
 * Hash de contraseñas
 * CSRF Protection
@@ -114,11 +114,11 @@ flask run
 * Expiración de sesión por inactividad
 * Cookies seguras en producción
 
-## -Acerca de este proyecto-
+## Acerca de este proyecto
 
-Task Master nació como un proyecto personal para mejorar mis habilidades con Flask y aprender a construir una aplicación completa con autenticación, sesiones seguras y manejo de usuarios reales.
+Task Master nació como un proyecto personal para mejorar mis habilidades con Flask y construir una aplicación completa con autenticación, sesiones seguras y manejo de usuarios reales.
 
-## -Vista de la app-
+## Vista de la app
 
 ### Home
 ![Home](assets/home.png)
@@ -129,7 +129,7 @@ Task Master nació como un proyecto personal para mejorar mis habilidades con Fl
 ### Inicio de Sesión
 ![inicio_sesion](assets/inicio_sesion.png)
 
-### Restablecimiento de la Contraseña
+### Restablecimiento de Contraseña
 ![restablecer_contraseña](assets/restablecer_contraseña.png)
 
 ### Task Master
@@ -141,7 +141,7 @@ Task Master nació como un proyecto personal para mejorar mis habilidades con Fl
 ### Task Master
 ![task_master_02](assets/task_master_02.png)
 
-### Modal Sesión
+### Modal de Advertencia de Sesión
 ![modal_sesion](assets/modal_sesion.png)
 
 ### Cierre Automático
@@ -156,6 +156,6 @@ Task Master nació como un proyecto personal para mejorar mis habilidades con Fl
 ### Manejo de Errores (429)
 ![429](assets/429.png)
 
-## -Autor-
+## Autor
 
 Jesús Marín

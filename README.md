@@ -130,7 +130,7 @@ Task Master nació como un proyecto personal para mejorar mis habilidades con Fl
 ![inicio_sesion](assets/inicio_sesion.png)
 
 ### Restablecimiento de Contraseña
-![restablecer_contraseña](assets/restablecer_contraseña.png)
+![restablecer_contraseña](assets/restablecer_contrasena.png)
 
 ### Task Master
 ![task_master_00](assets/task_master_00.png)

@@ -115,6 +115,15 @@ flask run
 * Expiración de sesión por inactividad
 * Cookies seguras en producción
 
+-Acerca de este proyecto-
+
+Task Master nació como un proyecto personal para mejorar mis habilidades con Flask y aprender a construir una aplicación completa con autenticación, sesiones seguras y manejo de usuarios reales.
+
+-Vista de la app-
+
+### Home
+![Home](assets/home.png)
+
 -Autor-
 
 Jesús Marín

@@ -23,7 +23,7 @@ class Task(db.Model):
         db.session.commit()
 
     def delete(self):
-        db.session.query(Task).filter_by(user_id=current_user.id).delete(synchronize_session=False)
+        db.session.delete(self)
         db.session.commit()
 
 
@@ -33,4 +33,4 @@ class Task(db.Model):
     
     @staticmethod
     def get_task_by_id(id):
-        return Task.query.get(id)
+        return db.session.get(Task, id)

@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, url_for, request, flash, session, current_app
 from .logger_config import logger
 from flask_limiter import Limiter
@@ -17,7 +18,7 @@ login_manager = LoginManager()
 limiter = Limiter(
     key_func=get_remote_address,
     default_limits=[],
-    storage_uri="redis://localhost:6379"
+    storage_uri=os.getenv("RATE_LIMIT_STORAGE", "redis://localhost:6379")
 )
 
 def create_app(settings_module):

@@ -39,7 +39,7 @@ de recuperación de contraseña.
 ## Configuración
 
 1. Copia .env.example y renómbralo a .env
-2.  Configura tus variables de entorno
+2. Configura tus variables de entorno
 
 FLASK_APP=entrypoint
 CONFIG_ENV=development
@@ -51,8 +51,11 @@ Redis (Flask-Limiter)
 Este proyecto utiliza Flask-Limiter para implementar protección
 contra abuso mediante rate limiting.
 
-Configuración actual:
-storage_uri="redis://localhost:6379"
+Configuración mediante variable de entorno:
+RATE_LIMIT_STORAGE=redis://localhost:6379
+
+Para desarrollo sin Redis:
+RATE_LIMIT_STORAGE=memory://
 
 ## Importante para producción
 
@@ -77,15 +80,13 @@ Usar Redis como servicio externo:
 
 Ejemplo de configuración:
 
-REDIS_URL=redis://:password@host:port/0
+RATE_LIMIT_STORAGE=redis://:password@host:port/0
 
-Y en la app:
-
-storage_uri=os.getenv("REDIS_URL")
+La app usa automáticamente esta variable si está definida.
 
 ## Opción alternativa (sin Redis)
 
-storage_uri="memory://"
+RATE_LIMIT_STORAGE=memory://
 
 Esta opción:
 

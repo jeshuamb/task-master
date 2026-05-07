@@ -19,7 +19,7 @@ def signup():
     
     form = RegistrationForm()
     if request.method == "POST" and form.validate_on_submit():
-        name = form.name.data
+        name = form.name.data.strip()
         email = form.email.data
         password = form.password.data
 

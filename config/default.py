@@ -26,7 +26,7 @@ class DefaultConfig:
     )
 
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE") == "True"
+    SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE", "False") == "True"
     SESSION_COOKIE_SAMESITE = "Lax"
 
     TIMEZONE = timezone(timedelta(hours=int(os.getenv("TIMEZONE_OFFSET", -4))))

@@ -135,12 +135,6 @@ def load_user(user_id):
 def csrf_token():
     return jsonify({"csrf_token": generate_csrf()})
 
-@auth_bp.route('/debug_cookies')
-def debug_cookies():
-    if not current_app.debug:
-        abort(404)
-    return str(request.cookies)
-
 @auth_bp.route("/session_status")
 @login_required
 def session_status():
@@ -177,6 +171,7 @@ def session_expired():
     return render_template("auth/session_expired.html")
 
 @auth_bp.route("/auto_logout", methods=["POST"])
+@login_required
 def auto_logout():
     logout_user()
     session.clear()
